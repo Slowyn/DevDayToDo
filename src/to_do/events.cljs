@@ -2,8 +2,7 @@
   (:require
     [re-frame.core :refer [reg-event after]]
     [schema.core :as s :include-macros true]
-    [to-do.db :as db :refer [app-db schema]]
-    [to-do.utils.helpers :refer [dec-to-zero]]))
+    [to-do.db :as db :refer [app-db schema]]))
 
 ;; -- Middleware ------------------------------------------------------------
 ;;

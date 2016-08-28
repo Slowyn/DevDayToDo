@@ -2,7 +2,6 @@
   (:require [reagent.core :as r]
             [re-frame.core :refer [subscribe dispatch]]
             [to-do.shared.ui :as ui]
-            [to-do.shared.components.header :refer [header]]
             [to-do.shared.routing.config :as r-config]))
 
 (defn app []
