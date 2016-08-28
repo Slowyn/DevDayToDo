@@ -1,4 +1,4 @@
-(ns to-do.shared.routing.methods
+(ns to-do.shared.routing.utils
   (:require [to-do.shared.ui :refer [scene-configs]]))
 
 (defn pop

@@ -27,3 +27,11 @@
   validate-spec-mw
   (fn [_ _]
     app-db))
+
+(reg-event
+  :add-todo
+  validate-spec-mw
+  (fn [db [_ todo-data]]
+    (update db :todos #(conj % (assoc todo-data
+                                 :id (random-uuid)
+                                 :done? false)))))

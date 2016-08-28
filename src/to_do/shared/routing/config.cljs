@@ -1,7 +1,11 @@
 (ns to-do.shared.routing.config
   (:require [reagent.core :as r]
             [to-do.shared.ui :as ui]
-            [to-do.shared.routing.methods :refer [push pop]]))
+            [to-do.shared.routing.utils :refer [push pop push-modal]]
+            [to-do.shared.routing.list :as list]
+            [to-do.shared.scenes.dashboard :refer [dashboard]]
+            [to-do.shared.scenes.add-todo :refer [add-todo]]
+            [to-do.shared.scenes.todo :refer [todo]]))
 
 (defn scene-configurator
   "Simple scene configurator"
@@ -11,29 +15,22 @@
       (.-PushFromRight ui/scene-configs)
       (:sceneConfig route))))
 
+(defn check-name
+  "Compare name with name of standart"
+  [route-name standart]
+  (when-not (nil? (:name standart))
+    (= route-name (:name standart))))
+
 (defn route-mapper
   "description of routes for navigator"
   [route nav]
-  (r/as-component
-    [ui/view {:style {:flex 1
-                      :padding-top 100}}
-     [ui/text (aget route "name")]
-     [ui/touchable-opacity {:on-press #(push {:name (str "scene " (inc (aget route "index")))
-                                              :index (inc (aget route "index"))}
-                                             nav)
-                            :style {:background-color "orange"
-                                    :padding 40
-                                    :align-items "center"
-                                    :justify-content "center"}}
-      [ui/text "Next page"]]
-     (if (not= (aget route "name") "home")
-       [ui/touchable-opacity {:on-press #(pop nav)
-                              :style {:margin-top 20
-                                      :background-color "#FF0"
-                                      :padding 40
-                                      :align-items "center"
-                                      :justify-content "center"}}
-        [ui/text "back"]])]))
+  (let [route-name (aget route "name")
+        scene (cond
+                (check-name route-name list/dashboard) [dashboard {:nav nav :route (js->clj route :keywordize-keys true)}]
+                (check-name route-name list/add-todo) [add-todo {:nav nav :route (js->clj route :keywordize-keys true)}]
+                (check-name route-name list/todo) [todo {:nav nav :route (js->clj route :keywordize-keys true)}]
+                :else [dashboard {:nav nav :route (js->clj route :keywordize-keys true)}])]
+    (r/as-component scene)))
 
 (def nav-bar-route-mapper
   "mapper for navbar"
@@ -50,4 +47,13 @@
                                       :justify-content "center"
                                       :height 44}
                              [ui/text (aget route "title")]]))
-   :RightButton #()})
+   :RightButton (fn [route nav index nav-state]
+                  (let [route-name (aget route "name")
+                        btn (cond
+                              (check-name route-name list/dashboard) [ui/touchable-opacity {:on-press #(push list/add-todo nav)}
+                                                                      [ui/view {:align-items "center"
+                                                                                :padding-horizontal 8
+                                                                                :justify-content "center"
+                                                                                :height 44}
+                                                                       [ui/text "Add ToDo"]]])]
+                    (r/as-component btn)))})
