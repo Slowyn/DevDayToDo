@@ -1,7 +1,7 @@
 (ns to-do.shared.routing.config
   (:require [reagent.core :as r]
             [to-do.shared.ui :as ui]
-            [to-do.shared.routing.utils :refer [push pop push-modal]]
+            [to-do.shared.routing.utils :as r-utils]
             [to-do.shared.routing.list :as list]
             [to-do.shared.scenes.dashboard :refer [dashboard]]
             [to-do.shared.scenes.add-todo :refer [add-todo]]
@@ -36,7 +36,7 @@
   "mapper for navbar"
   {:LeftButton (fn [route nav index nav-state]
                  (when-not (-> index zero?)
-                   (r/as-component [ui/touchable-opacity {:on-press #(pop nav)}
+                   (r/as-component [ui/touchable-opacity {:on-press #(r-utils/pop nav)}
                                     [ui/view {:align-items "center"
                                               :padding-horizontal 8
                                               :justify-content "center"
@@ -50,7 +50,7 @@
    :RightButton (fn [route nav index nav-state]
                   (let [route-name (aget route "name")
                         btn (cond
-                              (check-name route-name list/dashboard) [ui/touchable-opacity {:on-press #(push list/add-todo nav)}
+                              (check-name route-name list/dashboard) [ui/touchable-opacity {:on-press #(r-utils/push list/add-todo nav)}
                                                                       [ui/view {:align-items "center"
                                                                                 :padding-horizontal 8
                                                                                 :justify-content "center"

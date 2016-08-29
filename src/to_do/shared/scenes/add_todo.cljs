@@ -7,17 +7,16 @@
             [to-do.shared.components.button :refer [button]]
             [clojure.string :refer [blank?]]
             [to-do.shared.rn-api :refer [alert]]
-            [to-do.shared.routing.utils :as utils]))
+            [to-do.shared.routing.utils :as utils]
+            [to-do.global.styles :as g-style]))
 
-
-(def style {:container {:flex 1}})
 
 (defn add-todo
   [{:keys [nav route]}]
   (let [title-atom (r/atom "")
         desc-atom (r/atom "")]
     (fn [{:keys [nav route]}]
-      [ui/view {:style (:container style)}
+      [ui/view {:style g-style/container}
        [input-box {:label "Title"
                    :placeholder "Title"
                    :onChangeText #(reset! title-atom %)}]
