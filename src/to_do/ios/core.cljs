@@ -7,10 +7,6 @@
             [to-do.shared.rn-api :refer [app-registry alert]]
             [to-do.shared.scenes.main :refer [app]]))
 
-(def logo-img (js/require "./images/cljs.png"))
-
-
-
 (defn app-root []
   [app])
 
