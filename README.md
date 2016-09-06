@@ -1,14 +1,10 @@
 # to-do
 
-A Clojure library designed to ... well, that part is up to you.
+Very simple application for [DevDay conference](https://devday.ru/). 
 
-## Usage
-
-FIXME
-
-## License
-
-Copyright © 2016 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+## Screenshots
+![dashboard-empty](https://raw.githubusercontent.com/Slowyn/DevDayToDo/master/demo/1.png =250x)
+![add-todo](https://raw.githubusercontent.com/Slowyn/DevDayToDo/master/demo/2.png)
+![dashboard-list-view](https://raw.githubusercontent.com/Slowyn/DevDayToDo/master/demo/3.png)
+![todo](https://raw.githubusercontent.com/Slowyn/DevDayToDo/master/demo/4.png)
+![todo-done](https://raw.githubusercontent.com/Slowyn/DevDayToDo/master/demo/5.png)
