@@ -20,7 +20,7 @@
              :high-container {:height 70
                               :flex-direction "row"
                               :borderBottomWidth 0.5
-                              :border-color "#cccccc"}
+                              :border-color "#ccc"}
              :label-container {:flex 1
                                :padding-left 15
                                :justify-content "center"}
