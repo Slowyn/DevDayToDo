@@ -2,7 +2,7 @@
   (:require [reagent.core :as r]
             [to-do.shared.ui :as ui]
             [to-do.shared.routing.utils :as r-utils]
-            [to-do.shared.routing.list :as list]
+            [to-do.shared.routing.list :as r-list]
             [to-do.shared.scenes.dashboard :refer [dashboard]]
             [to-do.shared.scenes.add-todo :refer [add-todo]]
             [to-do.shared.scenes.todo :refer [todo]]))
@@ -26,9 +26,9 @@
   [route nav]
   (let [route-name (aget route "name")
         scene (cond
-                (check-name route-name list/dashboard) [dashboard {:nav nav :route (js->clj route :keywordize-keys true)}]
-                (check-name route-name list/add-todo) [add-todo {:nav nav :route (js->clj route :keywordize-keys true)}]
-                (check-name route-name list/todo) [todo {:nav nav :route (js->clj route :keywordize-keys true)}]
+                (check-name route-name r-list/dashboard) [dashboard {:nav nav :route (js->clj route :keywordize-keys true)}]
+                (check-name route-name r-list/add-todo) [add-todo {:nav nav :route (js->clj route :keywordize-keys true)}]
+                (check-name route-name r-list/todo) [todo {:nav nav :route (js->clj route :keywordize-keys true)}]
                 :else [dashboard {:nav nav :route (js->clj route :keywordize-keys true)}])]
     (r/as-component scene)))
 
@@ -50,7 +50,7 @@
    :RightButton (fn [route nav index nav-state]
                   (let [route-name (aget route "name")
                         btn (cond
-                              (check-name route-name list/dashboard) [ui/touchable-opacity {:on-press #(r-utils/push list/add-todo nav)}
+                              (check-name route-name r-list/dashboard) [ui/touchable-opacity {:on-press #(r-utils/push r-list/add-todo nav)}
                                                                       [ui/view {:align-items "center"
                                                                                 :padding-horizontal 8
                                                                                 :justify-content "center"
