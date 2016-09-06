@@ -2,6 +2,7 @@
   (:require
     [re-frame.core :refer [reg-event after]]
     [schema.core :as s :include-macros true]
+    [to-do.utils.helpers :refer [find-index]]
     [to-do.db :as db :refer [app-db schema]]))
 
 ;; -- Middleware ------------------------------------------------------------
@@ -20,6 +21,8 @@
     (after (partial check-and-throw schema))
     []))
 
+
+
 ;; -- Handlers --------------------------------------------------------------
 
 (reg-event
@@ -35,3 +38,10 @@
     (update db :todos #(conj % (assoc todo-data
                                  :id (random-uuid)
                                  :done? false)))))
+
+(reg-event
+  :edit-todo
+  validate-spec-mw
+  (fn [db [_ todo-id todo-data]]
+    (let [todo-index (find-index #(not= (:id %) todo-id) (:todos db))]
+      (assoc-in db [:todos todo-index] (merge (get-in db [:todos todo-index]) todo-data)))))
