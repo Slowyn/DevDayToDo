@@ -7,3 +7,9 @@
   :get-todos
   (fn [db [_ _]]
     (reaction (:todos @db))))
+
+(reg-sub-raw
+  :get-todo-info
+  (fn [db [_ todo-id]]
+    (reaction
+      (some #(when (= todo-id (:id %)) %) (:todos @db)))))
