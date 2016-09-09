@@ -22,7 +22,7 @@
 (defn dashboard
   [{:keys [route nav]}]
   (let [todos (subscribe [:get-todos])
-        data-source (ui/create-ds {:rowHasChanged (fn [r1 r2] (not= r1 r2))})]
+        data-source (ui/create-ds {:rowHasChanged not=})]
     (fn [{:keys [route nav]}]
       [ui/view {:style g-style/container}
        (if (-> @todos count pos?)
