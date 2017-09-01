@@ -30,6 +30,6 @@
                         :enableEmptySections true
                         :renderRow #(render-row % nav)}]
          [ui/scroll
-          [empty-screen {:title "You have notes any todos yet!"
+          [empty-screen {:title "You have no any todos yet!"
                          :btn-label "Don't you wish to create one?"
                          :on-press #(r-utils/push r-list/add-todo nav)}]])])))
